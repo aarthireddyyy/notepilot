@@ -7,6 +7,9 @@ Responsibilities:
 - Call RAG pipeline
 - Return answer + sources
 """
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -15,7 +18,13 @@ from backend.rag import answer_question
 
 app = FastAPI(title="NotePilot RAG API")
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # later restrict
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # ----------------------------
 # Request / Response schemas
 # ----------------------------
